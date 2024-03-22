@@ -67,18 +67,32 @@ following commands:
 
 ### `READ_BOOT_INFO`
 
-Host sends request: `[READ_BOOT_INFO]`
-Target sends response: `[READ_BOOT_INFO, <version_lo>, <version_hi>]`
+Requests bootload version.  Host sends request: `[READ_BOOT_INFO]`  Target sends
+response: `[READ_BOOT_INFO, <version_lo>, <version_hi>]`.
 
 ### `ERASE_FLASH`
 
-Host sends request: `[ERASE_FLASH]`
-Target sends response: `[ERASE_FLASH]`
+Erases all program memory (except for the bootloader itself).  Host sends
+request: `[ERASE_FLASH]`  Target sends response: `[ERASE_FLASH]`.
 
 ### `PROGRAM_FLASH`
 
-Host sends request: `[PROGRAM_FLASH hex_data...]`
-Target sends response: `[PROGRAM_FLASH]`
+Program one record of hex data.  Note that the program memory must have been
+previously erase with an `ERASE_FLASH` command.
+
+Host sends request: `[PROGRAM_FLASH hex_data...]`  where `hex_data` is one line
+from a file in Intel Hex format, where each pair of hex digits has been
+converted into a single byte.  Target sends response: `[PROGRAM_FLASH]`.
 
 ### `READ_CRC`
+
+Calculate the CRC over a range of bytes in program memory.
+
+Host sends `[READ_CRC start_addr byte_count]`.  Target sends response
+`[READ_CRC, crc_lo, crc_hi]`.
+
 ### `JMP_TO_APP`
+
+Exit the bootloader and start the target application.
+
+Host sends `[JMP_TO_APP]`.  Target does not respond.
