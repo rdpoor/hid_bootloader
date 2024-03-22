@@ -1,6 +1,6 @@
 # hid_bootloader
 
-Interact with a Nicrochip Harmony bootloader running on a target microcontroller
+Interact with a Microchip Harmony bootloader running on a target microcontroller
 via USB HID.
 
 ## Overview
