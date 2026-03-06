@@ -24,6 +24,7 @@ import argparse
 from bl_host import BootloaderHost
 from hexfile import HexFileParser, HexFileCrc
 import hid
+import time
 
 MCHIP_VID = 0x04d8
 MCHIP_PID = 0x003f
@@ -105,6 +106,8 @@ class BlMain:
         self.open_usb()
         blh = BootloaderHost(self.usb_dev, verbose=self.trace)
         blh.jump_to_app()
+        time.sleep(0.2)
+        self.usb_dev.close()
 
     # helper functions
 
